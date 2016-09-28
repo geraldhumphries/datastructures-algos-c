@@ -17,15 +17,17 @@ linked_list init_linked_list() {
     last_node->previous_node = first_node;
     list->header = first_node;
     list->trailer = last_node;
-
-    linked_list_node *node1 = (linked_list_node *) malloc(sizeof(linked_list_node));
-    linked_list_node *node2 = (linked_list_node *) malloc(sizeof(linked_list_node));
-    node1->val = "node1";
-    node2->val = "node2";
-
-    add(list, node1);
-    add(list, node2);
     return *list;
+}
+
+void destroy_linked_list(linked_list *list) {
+    int size = list->size;
+    for (int i = 0; i < size; i++) {
+        linked_list_remove_first(list);
+    }
+    free(list->header);
+    free(list->trailer);
+    free(list);
 }
 
 linked_list_node *get(linked_list list, int index) {
@@ -47,27 +49,48 @@ linked_list_node *get(linked_list list, int index) {
     return cursor_node;
 }
 
-void add(linked_list *list, linked_list_node *node_to_add) {
-    add_last(list, node_to_add);
+void linked_list_add(linked_list *list, linked_list_node *node_to_add) {
+    linked_list_add_last(list, node_to_add);
 }
 
-void add_first(linked_list *list, linked_list_node *node_to_add) {
-    add_after(list, node_to_add, list->header);
+void linked_list_add_first(linked_list *list, linked_list_node *node_to_add) {
+    linked_list_add_after(list, node_to_add, list->header);
 }
 
-void add_last(linked_list *list, linked_list_node *node_to_add) {
-    add_after(list, node_to_add, list->trailer->previous_node);
+void linked_list_add_last(linked_list *list, linked_list_node *node_to_add) {
+    linked_list_add_after(list, node_to_add, list->trailer->previous_node);
 }
 
-void add_at(linked_list *list, linked_list_node *node_to_add, int index) {
+void linked_list_add_at(linked_list *list, linked_list_node *node_to_add, int index) {
     linked_list_node *node = get(*list, index);
-    add_after(list, node_to_add, node);
+    linked_list_add_after(list, node_to_add, node);
 }
 
-void add_after(linked_list *list, linked_list_node *node_to_add, linked_list_node *after_node) {
+void linked_list_add_after(linked_list *list, linked_list_node *node_to_add, linked_list_node *after_node) {
     node_to_add->previous_node = after_node;
     node_to_add->next_node = after_node->next_node;
     after_node->next_node->previous_node = node_to_add;
     after_node->next_node = node_to_add;
     list->size++;
+}
+
+void linked_list_remove_first(linked_list *list) {
+    linked_list_remove_at(list, 0);
+}
+
+void linked_list_remove_last(linked_list *list) {
+    linked_list_remove_at(list, list->size - 1);
+}
+
+void linked_list_remove_at(linked_list *list, int index) {
+    linked_list_node *node_to_remove = get(*list, index);
+    linked_list_remove(list, node_to_remove);
+}
+
+void linked_list_remove(linked_list *list, linked_list_node *node_to_remove) {
+    node_to_remove->next_node->previous_node = node_to_remove->previous_node;
+    node_to_remove->previous_node->next_node = node_to_remove->next_node;
+    node_to_remove->previous_node = NULL;
+    node_to_remove->next_node = NULL;
+    list->size--;
 }
