@@ -1,7 +1,3 @@
-//
-// Created by ghumphries on 9/14/2016.
-//
-
 #include <stdlib.h>
 #include "linked-list-util.h"
 #include "linked-list.h"
@@ -21,8 +17,7 @@ linked_list init_linked_list() {
 }
 
 void destroy_linked_list(linked_list *list) {
-    int size = list->size;
-    for (int i = 0; i < size; i++) {
+    while (list->size) {
         linked_list_remove_first(list);
     }
     free(list->header);
@@ -30,7 +25,7 @@ void destroy_linked_list(linked_list *list) {
     free(list);
 }
 
-linked_list_node *get(linked_list list, int index) {
+linked_list_node *linked_list_get(linked_list list, int index) {
     linked_list_node *cursor_node;
     if (list.size == 0 || index < 0 || index + 1 > list.size) {
         return NULL;
@@ -62,7 +57,7 @@ void linked_list_add_last(linked_list *list, linked_list_node *node_to_add) {
 }
 
 void linked_list_add_at(linked_list *list, linked_list_node *node_to_add, int index) {
-    linked_list_node *node = get(*list, index);
+    linked_list_node *node = linked_list_get(*list, index);
     linked_list_add_after(list, node_to_add, node);
 }
 
@@ -83,7 +78,7 @@ void linked_list_remove_last(linked_list *list) {
 }
 
 void linked_list_remove_at(linked_list *list, int index) {
-    linked_list_node *node_to_remove = get(*list, index);
+    linked_list_node *node_to_remove = linked_list_get(*list, index);
     linked_list_remove(list, node_to_remove);
 }
 
