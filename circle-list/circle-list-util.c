@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "circle-linked-list-util.h"
-#include "circle-linked-list.h"
+#include "circle-list-util.h"
+#include "circle-list.h"
 
 circle_list init_circle_list() {
     circle_list *list = (circle_list *) malloc(sizeof(circle_list));

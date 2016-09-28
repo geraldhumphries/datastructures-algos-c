@@ -2,8 +2,8 @@
 #include "insert/insert.h"
 #include "linked-list/linked-list.h"
 #include "linked-list/linked-list-util.h"
-#include "circle-linked-list/circle-linked-list.h"
-#include "circle-linked-list/circle-linked-list-util.h"
+#include "circle-list/circle-list.h"
+#include "circle-list/circle-list-util.h"
 
 int main(void) {
     // array insertion

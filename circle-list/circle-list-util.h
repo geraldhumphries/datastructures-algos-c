@@ -1,7 +1,7 @@
 #ifndef DATASTRUCTURES_ALGOS_C_CIRCLE_LIST_UTIL_H
 #define DATASTRUCTURES_ALGOS_C_CIRCLE_LIST_UTIL_H
 
-#include "circle-linked-list.h"
+#include "circle-list.h"
 
 circle_list init_circle_list();
 void destroy_circle_list(circle_list *list);
