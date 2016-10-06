@@ -4,12 +4,10 @@
 #include "linked-list/linked-list-util.h"
 #include "circle-list/circle-list.h"
 #include "circle-list/circle-list-util.h"
+#include "stack/stack.h"
+#include "stack/stack-util.h"
 
-int main(void) {
-    // array insertion
-    build_game_entries_and_insert();
-
-    // linked list
+void test_linked_list() {
     linked_list linked_list = init_linked_list();
 
     linked_list_node node1;
@@ -29,8 +27,9 @@ int main(void) {
         printf("node %i val: %s\n", i, node->val);
     }
     destroy_linked_list(&linked_list);
+}
 
-    // circular linked list
+void test_circle_list() {
     circle_list circle_list = init_circle_list();
 
     circle_list_node circle_node1;
@@ -50,6 +49,46 @@ int main(void) {
         printf("node %i val: %s\n", i, node->val);
     }
     destroy_circle_list(&circle_list);
+}
+
+void test_stack() {
+    stack stack = init_stack();
+    
+    stack_node stack_node1;
+    stack_node stack_node2;
+    stack_node stack_node3;
+    stack_node1.val = "node 1";
+    stack_node2.val = "node 2";
+    stack_node3.val = "node 3";
+
+    stack_push(&stack, &stack_node1);
+    while (stack.size) {
+        printf("stack value: %s\n", stack_pop(&stack)->val);
+    }
+
+    stack_push(&stack, &stack_node1);
+    stack_push(&stack, &stack_node2);
+    while (stack.size) {
+        printf("stack value: %s\n", stack_pop(&stack)->val);
+    }
+
+    stack_push(&stack, &stack_node1);
+    stack_push(&stack, &stack_node2);
+    printf("stack value: %s\n", stack_pop(&stack)->val);
+    stack_push(&stack, &stack_node3);
+    printf("stack value: %s\n", stack_pop(&stack)->val);
+    printf("stack value: %s\n", stack_pop(&stack)->val);
+
+    destroy_stack(&stack);
+}
+
+int main(void) {
+    // array insertion
+    build_game_entries_and_insert();
+    
+    test_linked_list();
+    test_circle_list();
+    test_stack();
 
     return 0;
 }
