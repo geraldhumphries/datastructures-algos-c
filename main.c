@@ -6,6 +6,8 @@
 #include "circle-list/circle-list-util.h"
 #include "stack/stack.h"
 #include "stack/stack-util.h"
+#include "queue/queue.h"
+#include "queue/queue_util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -82,6 +84,36 @@ void test_stack() {
     destroy_stack(&stack);
 }
 
+void test_queue() {
+    queue q = init_queue();
+
+    queue_node queue_node1;
+    queue_node queue_node2;
+    queue_node queue_node3;
+    queue_node1.val = "node 1";
+    queue_node2.val = "node 2";
+    queue_node3.val = "node 3";
+
+    enqueue(&q, &queue_node1);
+    while (q.size) {
+        printf("queue value: %s\n", dequeue(&q)->val);
+    }
+
+    enqueue(&q, &queue_node1);
+    enqueue(&q, &queue_node2);
+    while (q.size) {
+        printf("queue value: %s\n", dequeue(&q)->val);
+    }
+
+    enqueue(&q, &queue_node1);
+    enqueue(&q, &queue_node3);
+    printf("queue value: %s\n", dequeue(&q)->val);
+
+    enqueue(&q, &queue_node2);
+    printf("queue value: %s\n", dequeue(&q)->val);
+    printf("queue value: %s\n", dequeue(&q)->val);
+}
+
 int main(void) {
     // array insertion
     build_game_entries_and_insert();
@@ -89,6 +121,7 @@ int main(void) {
     test_linked_list();
     test_circle_list();
     test_stack();
+    test_queue();
 
     return 0;
 }
