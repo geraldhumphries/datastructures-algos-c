@@ -12,7 +12,7 @@ void destroy_queue(queue *q) {
     free(q);
 }
 
-void enqueue(queue *q, queue_node *node) {
+void queue_enqueue(queue *q, queue_node *node) {
     if (q->size == 0) {
         q->head = node;
     } else {
@@ -23,7 +23,7 @@ void enqueue(queue *q, queue_node *node) {
     q->size++;
 }
 
-queue_node *dequeue(queue *q) {
+queue_node *queue_dequeue(queue *q) {
     if (q->size == 0) {
         return NULL;
     }
@@ -38,10 +38,10 @@ queue_node *dequeue(queue *q) {
     q->size--;
     return result;
 }
-int is_empty(queue *q) {
+int queue_is_empty(queue *q) {
     if (q->size == 0) {
-        return 0;
-    } else {
         return 1;
+    } else {
+        return 0;
     }
 }

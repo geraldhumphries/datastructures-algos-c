@@ -8,6 +8,8 @@
 #include "stack/stack-util.h"
 #include "queue/queue.h"
 #include "queue/queue_util.h"
+#include "deque/deque.h"
+#include "deque/deque_util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -94,24 +96,70 @@ void test_queue() {
     queue_node2.val = "node 2";
     queue_node3.val = "node 3";
 
-    enqueue(&q, &queue_node1);
+    queue_enqueue(&q, &queue_node1);
     while (q.size) {
-        printf("queue value: %s\n", dequeue(&q)->val);
+        printf("queue value: %s\n", queue_dequeue(&q)->val);
     }
 
-    enqueue(&q, &queue_node1);
-    enqueue(&q, &queue_node2);
+    queue_enqueue(&q, &queue_node1);
+    queue_enqueue(&q, &queue_node2);
     while (q.size) {
-        printf("queue value: %s\n", dequeue(&q)->val);
+        printf("queue value: %s\n", queue_dequeue(&q)->val);
     }
 
-    enqueue(&q, &queue_node1);
-    enqueue(&q, &queue_node3);
-    printf("queue value: %s\n", dequeue(&q)->val);
+    queue_enqueue(&q, &queue_node1);
+    queue_enqueue(&q, &queue_node3);
+    printf("queue value: %s\n", queue_dequeue(&q)->val);
 
-    enqueue(&q, &queue_node2);
-    printf("queue value: %s\n", dequeue(&q)->val);
-    printf("queue value: %s\n", dequeue(&q)->val);
+    queue_enqueue(&q, &queue_node2);
+    printf("queue value: %s\n", queue_dequeue(&q)->val);
+    printf("queue value: %s\n", queue_dequeue(&q)->val);
+
+    destroy_queue(&q);
+}
+
+void test_deque() {
+    deque d = init_deque();
+
+    deque_node deque_node1;
+    deque_node deque_node2;
+    deque_node deque_node3;
+    deque_node1.val = "node 1";
+    deque_node2.val = "node 2";
+    deque_node3.val = "node 3";
+
+    deque_insert_last(&d, &deque_node1);
+
+    while (d.size) {
+        printf("deque value: %s\n", deque_remove_first(&d)->val);
+    }
+
+    deque_insert_last(&d, &deque_node1);
+    deque_insert_last(&d, &deque_node2);
+    deque_insert_last(&d, &deque_node3);
+
+    while (d.size) {
+        printf("deque value: %s\n", deque_remove_first(&d)->val);
+    }
+
+    deque_insert_first(&d, &deque_node1);
+    deque_insert_first(&d, &deque_node2);
+    deque_insert_first(&d, &deque_node3);
+
+    while (d.size) {
+        printf("deque value: %s\n", deque_remove_first(&d)->val);
+    }
+
+    deque_insert_last(&d, &deque_node1);
+    deque_insert_last(&d, &deque_node2);
+    deque_insert_last(&d, &deque_node3);
+
+    while (d.size) {
+        printf("deque value: %s\n", deque_remove_last(&d)->val);
+    }
+
+
+    destroy_deque(&d);
 }
 
 int main(void) {
@@ -122,6 +170,7 @@ int main(void) {
     test_circle_list();
     test_stack();
     test_queue();
+    test_deque();
 
     return 0;
 }

@@ -23,9 +23,9 @@ stack_node *stack_pop(stack *s) {
 
 int stack_is_empty(stack *s) {
     if (s->size == 0) {
-        return 0;
-    } else {
         return 1;
+    } else {
+        return 0;
     }
 }
 
