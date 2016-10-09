@@ -43,7 +43,7 @@ int array_list_get(array_list *list, int index) {
     return list->val[index];
 }
 void array_list_remove(array_list *list, int index) {
-    for (int i = index; i < list->size; i++) {
+    for (int i = index; i < list->size - 1; i++) {
         list->val[i] = list->val[i+1];
     }
     list->size--;
