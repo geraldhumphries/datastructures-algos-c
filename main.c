@@ -10,6 +10,8 @@
 #include "queue/queue_util.h"
 #include "deque/deque.h"
 #include "deque/deque_util.h"
+#include "array-list/array-list.h"
+#include "array-list/array-list-util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -162,6 +164,46 @@ void test_deque() {
     destroy_deque(&d);
 }
 
+void test_array_list() {
+    array_list list = init_array_list();
+
+    for (int i = 0; i < 4; i++) {
+        array_list_add(&list, i, i * 2);
+        printf("array list capacity = %i, size = %i\n", list.capacity, list.size);
+    }
+
+    for (int i = 0; i < list.size; i++) {
+        printf("array list value: position = %i, value = %i\n", i, array_list_get(&list, i));
+    }
+
+    destroy_array_list(&list);
+    list = init_array_list();
+
+    for (int i = 0; i < 100; i++) {
+        array_list_add(&list, i, i * 2);
+        printf("array list capacity = %i, size = %i\n", list.capacity, list.size);
+    }
+
+    for (int i = 0; i < list.size; i++) {
+        printf("array list value: position = %i, value = %i\n", i, array_list_get(&list, i));
+    }
+
+    for (int i = 0; i < 50; i++) {
+        array_list_remove(&list, 0);
+        printf("array list capacity = %i, size = %i\n", list.capacity, list.size);
+        printf("array list value: position = %i, value = %i\n", 0, array_list_get(&list, 0));
+    }
+
+
+    for (int i = 0; i < 50; i++) {
+        array_list_set(&list, i, i);
+        printf("array list capacity = %i, size = %i\n", list.capacity, list.size);
+        printf("array list value: position = %i, value = %i\n", i, array_list_get(&list, i));
+    }
+
+    destroy_array_list(&list);
+}
+
 int main(void) {
     // array insertion
     build_game_entries_and_insert();
@@ -171,6 +213,7 @@ int main(void) {
     test_stack();
     test_queue();
     test_deque();
+    test_array_list();
 
     return 0;
 }
