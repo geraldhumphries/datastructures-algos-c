@@ -271,6 +271,12 @@ void test_binary_tree() {
         printf("postorder traversal position %i: %i\n", i, postorder_list[i]);
     }
 
+    int inorder_list[tree.size];
+    binary_tree_inorder(&tree, inorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("inorder traversal position %i: %i\n", i, inorder_list[i]);
+    }
+
     destroy_binary_tree(&tree);
 }
 

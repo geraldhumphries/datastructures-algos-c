@@ -142,11 +142,12 @@ void binary_tree_remove(binary_tree *tree, binary_tree_node *node) {
 
 int traverse_node_preorder(int *list, int index, binary_tree_node *node) {
     if (!node) {
-        return index - 1;
+        return index;
     }
     list[index] = node->val;
-    index = traverse_node_preorder(list, index + 1, node->left_child);
-    index = traverse_node_preorder(list, index + 1, node->right_child);
+    index++;
+    index = traverse_node_preorder(list, index, node->left_child);
+    index = traverse_node_preorder(list, index, node->right_child);
     return index;
 }
 
@@ -167,4 +168,19 @@ int traverse_node_postorder(int *list, int index, binary_tree_node *node) {
 
 void binary_tree_postorder(binary_tree *tree, int *list) {
     traverse_node_postorder(list, 0, tree->root);
+}
+
+int traverse_node_inorder(int *list, int index, binary_tree_node *node) {
+    if (!node) {
+        return index;
+    }
+    index = traverse_node_inorder(list, index, node->left_child);
+    list[index] = node->val;
+    index++;
+    index = traverse_node_inorder(list, index, node->right_child);
+    return index;
+}
+
+void binary_tree_inorder(binary_tree *tree, int *list) {
+    traverse_node_inorder(list, 0, tree->root);
 }
