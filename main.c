@@ -208,19 +208,15 @@ void test_array_list() {
 
 void test_binary_tree() {
     binary_tree tree = init_binary_tree();
-
     binary_tree_node node1;
     memset(&node1, 0, sizeof(binary_tree_node));
     node1.val = 1;
-
     binary_tree_node node2;
     memset(&node2, 0, sizeof(binary_tree_node));
     node2.val = 2;
-
     binary_tree_node node3;
     memset(&node3, 0, sizeof(binary_tree_node));
     node3.val = 3;
-
     binary_tree_node node4;
     memset(&node4, 0, sizeof(binary_tree_node));
     node4.val = 4;
@@ -229,10 +225,12 @@ void test_binary_tree() {
     binary_tree_insert_left(&tree, &node1, &node2);
     binary_tree_insert_right(&tree, &node1, &node3);
     binary_tree_insert_left(&tree, &node2, &node4);
+
     printf("height of node1: %i\n", binary_tree_height(&tree, &node1));
     printf("height of node2: %i\n", binary_tree_height(&tree, &node2));
     printf("height of node3: %i\n", binary_tree_height(&tree, &node3));
     printf("height of node4: %i\n", binary_tree_height(&tree, &node4));
+
     printf("depth of node1: %i\n", binary_tree_depth(&tree, &node1));
     printf("depth of node2: %i\n", binary_tree_depth(&tree, &node2));
     printf("depth of node3: %i\n", binary_tree_depth(&tree, &node3));
@@ -242,6 +240,36 @@ void test_binary_tree() {
     binary_tree_remove(&tree, &node4);
     binary_tree_remove(&tree, &node3);
     binary_tree_remove(&tree, &node1);
+    
+    binary_tree_node node5;
+    memset(&node5, 0, sizeof(binary_tree_node));
+    node5.val = 5;
+    binary_tree_node node6;
+    memset(&node6, 0, sizeof(binary_tree_node));
+    node6.val = 6;
+    binary_tree_node node7;
+    memset(&node7, 0, sizeof(binary_tree_node));
+    node7.val = 7;
+
+    binary_tree_add_root(&tree, &node1);
+    binary_tree_insert_left(&tree, &node1, &node2);
+    binary_tree_insert_right(&tree, &node1, &node3);
+    binary_tree_insert_left(&tree, &node2, &node4);
+    binary_tree_insert_right(&tree, &node2, &node5);
+    binary_tree_insert_left(&tree, &node3, &node6);
+    binary_tree_insert_right(&tree, &node3, &node7);
+
+    int preorder_list[tree.size];
+    binary_tree_preorder(&tree, preorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("preorder traversal position %i: %i\n", i, preorder_list[i]);
+    }
+
+    int postorder_list[tree.size];
+    binary_tree_postorder(&tree, postorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("postorder traversal position %i: %i\n", i, postorder_list[i]);
+    }
 
     destroy_binary_tree(&tree);
 }

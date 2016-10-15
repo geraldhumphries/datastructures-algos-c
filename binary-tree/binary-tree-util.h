@@ -31,4 +31,8 @@ int binary_tree_node_is_left(binary_tree_node *node);
 
 void binary_tree_remove(binary_tree *tree, binary_tree_node *node);
 
+void binary_tree_preorder(binary_tree *tree, int *list);
+
+void binary_tree_postorder(binary_tree *tree, int *list);
+
 #endif //DATASTRUCTURES_ALGOS_C_BINARY_TREE_UTIL_H
