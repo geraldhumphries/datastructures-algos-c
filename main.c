@@ -238,6 +238,11 @@ void test_binary_tree() {
     printf("depth of node3: %i\n", binary_tree_depth(&tree, &node3));
     printf("depth of node4: %i\n", binary_tree_depth(&tree, &node4));
 
+    binary_tree_remove(&tree, &node2);
+    binary_tree_remove(&tree, &node4);
+    binary_tree_remove(&tree, &node3);
+    binary_tree_remove(&tree, &node1);
+
     destroy_binary_tree(&tree);
 }
 

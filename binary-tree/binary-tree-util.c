@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <mem.h>
 #include "binary-tree-util.h"
 #include "binary-tree.h"
 
@@ -109,16 +110,32 @@ int binary_tree_node_is_left(binary_tree_node *node) {
 }
 
 void binary_tree_remove(binary_tree *tree, binary_tree_node *node) {
-    if (binary_tree_node_is_internal(node)) {
-        return; // can't remove an internal node?
+    if (node->left_child && node->right_child) {
+        return; // can't remove a node with two children
     }
-    if (binary_tree_node_is_root(tree, node)) {
-        tree->root = NULL;
-    } else if (binary_tree_node_is_right(node)) {
-        node->parent->right_child = NULL;
+
+    binary_tree_node *new_in_pos;
+    if (node->left_child) {
+        new_in_pos = node->left_child;
+        new_in_pos->parent = node->parent;
+    } else if (node->right_child) {
+        new_in_pos = node->right_child;
+        new_in_pos->parent = node->parent;
     } else {
-        node->parent->left_child = NULL;
+        new_in_pos = NULL;
     }
+
+    if (binary_tree_node_is_root(tree, node)) {
+        tree->root = new_in_pos;
+    } else if (binary_tree_node_is_left(node)) {
+        node->parent->left_child = new_in_pos;
+    } else {
+        node->parent->right_child = new_in_pos;
+    }
+    node->parent = NULL;
+    node->left_child = NULL;
+    node->right_child = NULL;
+
     tree->size--;
 
 }
