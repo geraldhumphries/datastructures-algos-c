@@ -12,6 +12,8 @@
 #include "deque/deque_util.h"
 #include "array-list/array-list.h"
 #include "array-list/array-list-util.h"
+#include "binary-tree/binary-tree.h"
+#include "binary-tree/binary-tree-util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -204,6 +206,41 @@ void test_array_list() {
     destroy_array_list(&list);
 }
 
+void test_binary_tree() {
+    binary_tree tree = init_binary_tree();
+
+    binary_tree_node node1;
+    memset(&node1, 0, sizeof(binary_tree_node));
+    node1.val = 1;
+
+    binary_tree_node node2;
+    memset(&node2, 0, sizeof(binary_tree_node));
+    node2.val = 2;
+
+    binary_tree_node node3;
+    memset(&node3, 0, sizeof(binary_tree_node));
+    node3.val = 3;
+
+    binary_tree_node node4;
+    memset(&node4, 0, sizeof(binary_tree_node));
+    node4.val = 4;
+
+    binary_tree_add_root(&tree, &node1);
+    binary_tree_insert_left(&tree, &node1, &node2);
+    binary_tree_insert_right(&tree, &node1, &node3);
+    binary_tree_insert_left(&tree, &node2, &node4);
+    printf("height of node1: %i\n", binary_tree_height(&tree, &node1));
+    printf("height of node2: %i\n", binary_tree_height(&tree, &node2));
+    printf("height of node3: %i\n", binary_tree_height(&tree, &node3));
+    printf("height of node4: %i\n", binary_tree_height(&tree, &node4));
+    printf("depth of node1: %i\n", binary_tree_depth(&tree, &node1));
+    printf("depth of node2: %i\n", binary_tree_depth(&tree, &node2));
+    printf("depth of node3: %i\n", binary_tree_depth(&tree, &node3));
+    printf("depth of node4: %i\n", binary_tree_depth(&tree, &node4));
+
+    destroy_binary_tree(&tree);
+}
+
 int main(void) {
     // array insertion
     build_game_entries_and_insert();
@@ -214,6 +251,7 @@ int main(void) {
     test_queue();
     test_deque();
     test_array_list();
+    test_binary_tree();
 
     return 0;
 }
