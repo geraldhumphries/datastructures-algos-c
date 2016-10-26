@@ -280,6 +280,49 @@ void test_binary_tree() {
     destroy_binary_tree(&tree);
 }
 
+
+void test_binary_search_tree() {
+    binary_tree tree = init_binary_tree();
+
+    binary_tree_node node1;
+    memset(&node1, 0, sizeof(binary_tree_node));
+    node1.val = 1;
+    binary_tree_node node2;
+    memset(&node2, 0, sizeof(binary_tree_node));
+    node2.val = 2;
+    binary_tree_node node3;
+    memset(&node3, 0, sizeof(binary_tree_node));
+    node3.val = 3;
+    binary_tree_node node4;
+    memset(&node4, 0, sizeof(binary_tree_node));
+    node4.val = 4;
+    binary_tree_node node5;
+    memset(&node5, 0, sizeof(binary_tree_node));
+    node5.val = 5;
+    binary_tree_node node6;
+    memset(&node6, 0, sizeof(binary_tree_node));
+    node6.val = 6;
+    binary_tree_node node7;
+    memset(&node7, 0, sizeof(binary_tree_node));
+    node7.val = 7;
+
+    binary_tree_add_root(&tree, &node4);
+    binary_tree_insert_left(&tree, &node4, &node2);
+    binary_tree_insert_left(&tree, &node2, &node1);
+    binary_tree_insert_right(&tree, &node2, &node3);
+    binary_tree_insert_right(&tree, &node4, &node6);
+    binary_tree_insert_left(&tree, &node6, &node5);
+    binary_tree_insert_right(&tree, &node6, &node7);
+
+    int inorder_list[tree.size];
+    binary_tree_inorder(&tree, inorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("BST inorder traversal position %i: %i\n", i, inorder_list[i]);
+    }
+
+
+}
+
 int main(void) {
     // array insertion
     build_game_entries_and_insert();
@@ -291,6 +334,7 @@ int main(void) {
     test_deque();
     test_array_list();
     test_binary_tree();
+    test_binary_search_tree();
 
     return 0;
 }
