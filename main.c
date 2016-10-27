@@ -14,6 +14,7 @@
 #include "array-list/array-list-util.h"
 #include "binary-tree/binary-tree.h"
 #include "binary-tree/binary-tree-util.h"
+#include "binary-search-tree/binary-search-tree-util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -320,6 +321,12 @@ void test_binary_search_tree() {
         printf("BST inorder traversal position %i: %i\n", i, inorder_list[i]);
     }
 
+    binary_tree_node *result = binary_search_tree_search(&tree, 1);
+    printf("BST search result pointer for val %i: %p\n", 1, result);
+    result = binary_search_tree_search(&tree, 6);
+    printf("BST search result pointer for val %i: %p\n", 6, result);
+    result = binary_search_tree_search(&tree, 10); // NULL, not found
+    printf("BST search result pointer for val %i: %p\n", 10, result);
 
 }
 
