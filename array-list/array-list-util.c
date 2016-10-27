@@ -36,10 +36,6 @@ void array_list_add(array_list *list, int index, int val) {
     list->size++;
 }
 int array_list_get(array_list *list, int index) {
-    if (index >= list->size) {
-        return NULL;
-    }
-
     return list->val[index];
 }
 void array_list_remove(array_list *list, int index) {
