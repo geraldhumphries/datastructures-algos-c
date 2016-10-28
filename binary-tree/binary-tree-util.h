@@ -37,4 +37,6 @@ void binary_tree_postorder(binary_tree *tree, int *list);
 
 void binary_tree_inorder(binary_tree *tree, int *list);
 
+void binary_tree_invert(binary_tree *tree);
+
 #endif //DATASTRUCTURES_ALGOS_C_BINARY_TREE_UTIL_H

@@ -184,3 +184,18 @@ int traverse_node_inorder(int *list, int index, binary_tree_node *node) {
 void binary_tree_inorder(binary_tree *tree, int *list) {
     traverse_node_inorder(list, 0, tree->root);
 }
+
+void invert_node(binary_tree_node *node) {
+    if (!node) {
+        return;
+    }
+    invert_node(node->left_child);
+    invert_node(node->right_child);
+    binary_tree_node *temp = node->left_child;
+    node->left_child = node->right_child;
+    node->right_child = temp;
+}
+
+void binary_tree_invert(binary_tree *tree) {
+    invert_node(tree->root);
+}

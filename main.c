@@ -328,6 +328,12 @@ void test_binary_search_tree() {
     result = binary_search_tree_search(&tree, 10); // NULL, not found
     printf("BST search result pointer for val %i: %p\n", 10, result);
 
+    binary_tree_invert(&tree);
+    binary_tree_inorder(&tree, inorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("BST inorder traversal position %i: %i\n", i, inorder_list[i]);
+    }
+
 }
 
 int main(void) {
