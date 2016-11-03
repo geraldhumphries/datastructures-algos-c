@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "insert/insert.h"
 #include "linked-list/linked-list.h"
 #include "linked-list/linked-list-util.h"
@@ -15,6 +17,8 @@
 #include "binary-tree/binary-tree.h"
 #include "binary-tree/binary-tree-util.h"
 #include "binary-search-tree/binary-search-tree-util.h"
+#include "heap/heap.h"
+#include "heap/heap-util.h"
 
 void test_linked_list() {
     linked_list linked_list = init_linked_list();
@@ -336,9 +340,39 @@ void test_binary_search_tree() {
 
 }
 
+
+void test_heap() {
+    array_list heap = init_array_list();
+    int *test_array = malloc(20 * sizeof(int));
+    // build unsorted array
+    for (int i = 0; i < 20; i++) {
+        test_array[i] = rand();
+    }
+
+    // insert into heap
+    for (int i = 0; i < 20; i++) {
+         heap_add(&heap, test_array[i]);
+    }
+
+    // print into array, sorted
+    for (int i = 0; i < 20; i++) {
+        test_array[i] = heap_remove(&heap);
+    }
+
+    // print and test array
+    for (int i = 0; i < 20; i++) {
+         if (i > 0 && test_array[i - 1] > test_array[i]) {
+             printf("ERROR! %i is out of place at position %i in heap-sorted array\n", test_array[i], i);
+         }
+         printf("heap-sorted array position %i: %i\n", i, test_array[i]);
+    }
+}
+
 int main(void) {
     // array insertion
     build_game_entries_and_insert();
+
+    srand((unsigned int) time(NULL));
     
     test_linked_list();
     test_circle_list();
@@ -348,6 +382,7 @@ int main(void) {
     test_array_list();
     test_binary_tree();
     test_binary_search_tree();
+    test_heap();
 
     return 0;
 }
