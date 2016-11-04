@@ -30,25 +30,26 @@ void down_heap(array_list *heap, int position) {
     }
     int val = array_list_get(heap, position);
     int child_position = position * 2 + 1;
-    if (child_position != heap->size - 1) {
-        // left and right children, so swap with the smaller one and prefer left
-        child_position = array_list_get(heap, child_position) <= array_list_get(heap, child_position + 1) ? child_position : child_position + 1;
+    if (child_position < heap->size - 1) {
+        // left and right children, so use the smaller one and prefer left
+        int left_child = array_list_get(heap, child_position);
+        int right_child = array_list_get(heap, child_position + 1);
+        child_position = left_child <= right_child ? child_position : child_position + 1;
     }
-    int child_val = array_list_get(heap, child_position);
 
-    while (child_position < heap->size && val > child_val) {
+    while (child_position < heap->size && val > array_list_get(heap, child_position)) {
         // swap the value with the correct child
+        int child = array_list_get(heap, child_position);
         array_list_set(heap, child_position, val);
-        array_list_set(heap, position, child_val);
+        array_list_set(heap, position, child);
         position = child_position;
         child_position = position * 2 + 1;
 
         if (child_position < heap->size - 1) {
             // left and right children, so use the smaller one and prefer left
-            child_position = array_list_get(heap, child_position) <= array_list_get(heap, child_position + 1) ? child_position : child_position + 1;
-        }
-        if (child_position < heap->size) {
-            child_val = array_list_get(heap, child_position);
+            int left_child = array_list_get(heap, child_position);
+            int right_child = array_list_get(heap, child_position + 1);
+            child_position = left_child <= right_child ? child_position : child_position + 1;
         }
     }
 }
