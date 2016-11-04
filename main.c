@@ -343,29 +343,32 @@ void test_binary_search_tree() {
 
 void test_heap() {
     array_list heap = init_array_list();
-    int *test_array = malloc(20 * sizeof(int));
+    int ARRAY_SIZE = 40;
+    int *test_array = malloc(ARRAY_SIZE * sizeof(int));
     // build unsorted array
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < ARRAY_SIZE; i++) {
         test_array[i] = rand();
     }
 
     // insert into heap
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < ARRAY_SIZE; i++) {
          heap_add(&heap, test_array[i]);
     }
 
     // print into array, sorted
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < ARRAY_SIZE; i++) {
         test_array[i] = heap_remove(&heap);
     }
+    destroy_array_list(&heap);
 
     // print and test array
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < ARRAY_SIZE; i++) {
          if (i > 0 && test_array[i - 1] > test_array[i]) {
-             printf("ERROR! %i is out of place at position %i in heap-sorted array\n", test_array[i], i);
+             printf("ERROR! %i is out of place at position %i in out-of-place heap-sorted array\n", test_array[i], i);
          }
-         printf("heap-sorted array position %i: %i\n", i, test_array[i]);
+         printf("out-of-place heap-sorted array position %i: %i\n", i, test_array[i]);
     }
+    free(test_array);
 }
 
 int main(void) {

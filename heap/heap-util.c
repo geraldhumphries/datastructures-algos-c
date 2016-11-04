@@ -25,21 +25,31 @@ void heap_add(array_list *heap, int value) {
 }
 
 void down_heap(array_list *heap, int position) {
-    if (position == heap->size - 1) {
+    if (position >= heap->size - 1) {
         return;
     }
-    int curr_val = array_list_get(heap, position);
-    int child_position = (position << 1) + 2;
-    if (child_position >= heap->size) {
-        child_position--;
+    int val = array_list_get(heap, position);
+    int child_position = position * 2 + 1;
+    if (child_position != heap->size - 1) {
+        // left and right children, so swap with the smaller one and prefer left
+        child_position = array_list_get(heap, child_position) <= array_list_get(heap, child_position + 1) ? child_position : child_position + 1;
     }
     int child_val = array_list_get(heap, child_position);
 
-    if (curr_val > child_val) {
-        // swap
-        array_list_set(heap, child_position, curr_val);
+    while (child_position < heap->size && val > child_val) {
+        // swap the value with the correct child
+        array_list_set(heap, child_position, val);
         array_list_set(heap, position, child_val);
-        down_heap(heap, child_position);
+        position = child_position;
+        child_position = position * 2 + 1;
+
+        if (child_position < heap->size - 1) {
+            // left and right children, so use the smaller one and prefer left
+            child_position = array_list_get(heap, child_position) <= array_list_get(heap, child_position + 1) ? child_position : child_position + 1;
+        }
+        if (child_position < heap->size) {
+            child_val = array_list_get(heap, child_position);
+        }
     }
 }
 
