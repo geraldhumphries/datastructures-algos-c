@@ -288,6 +288,7 @@ void test_binary_tree() {
 
 void test_binary_search_tree() {
     binary_tree tree = init_binary_tree();
+    tree.root = NULL;
 
     binary_tree_node node1;
     memset(&node1, 0, sizeof(binary_tree_node));
@@ -311,13 +312,13 @@ void test_binary_search_tree() {
     memset(&node7, 0, sizeof(binary_tree_node));
     node7.val = 7;
 
-    binary_tree_add_root(&tree, &node4);
-    binary_tree_insert_left(&tree, &node4, &node2);
-    binary_tree_insert_left(&tree, &node2, &node1);
-    binary_tree_insert_right(&tree, &node2, &node3);
-    binary_tree_insert_right(&tree, &node4, &node6);
-    binary_tree_insert_left(&tree, &node6, &node5);
-    binary_tree_insert_right(&tree, &node6, &node7);
+    bst_add(&tree, &node6);
+    bst_add(&tree, &node3);
+    bst_add(&tree, &node5);
+    bst_add(&tree, &node4);
+    bst_add(&tree, &node2);
+    bst_add(&tree, &node1);
+    bst_add(&tree, &node7);
 
     int inorder_list[tree.size];
     binary_tree_inorder(&tree, inorder_list);
@@ -325,17 +326,27 @@ void test_binary_search_tree() {
         printf("BST inorder traversal position %i: %i\n", i, inorder_list[i]);
     }
 
-    binary_tree_node *result = binary_search_tree_search(&tree, 1);
+    binary_tree_node *result = bst_search(&tree, 1);
     printf("BST search result pointer for val %i: %p\n", 1, result);
-    result = binary_search_tree_search(&tree, 6);
+    result = bst_search(&tree, 6);
     printf("BST search result pointer for val %i: %p\n", 6, result);
-    result = binary_search_tree_search(&tree, 10); // NULL, not found
+    result = bst_search(&tree, 10); // NULL, not found
     printf("BST search result pointer for val %i: %p\n", 10, result);
 
     binary_tree_invert(&tree);
     binary_tree_inorder(&tree, inorder_list);
     for (int i = 0; i < tree.size; i++) {
-        printf("BST inorder traversal position %i: %i\n", i, inorder_list[i]);
+        printf("BST inorder traversal after addition position %i: %i\n", i, inorder_list[i]);
+    }
+
+    binary_tree_invert(&tree);
+
+    bst_remove(&tree, tree.root);
+    bst_remove(&tree, &node5);
+    bst_remove(&tree, &node1);
+    binary_tree_inorder(&tree, inorder_list);
+    for (int i = 0; i < tree.size; i++) {
+        printf("BST inorder traversal after removal position %i: %i\n", i, inorder_list[i]);
     }
 
 }
